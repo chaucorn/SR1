@@ -18,9 +18,10 @@
 #define GREEN   "\033[32m"
 #define YELLOW  "\033[33m"
 #define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
 #define SERVER_IP "146.59.237.169"
 #define SERVER_LOCAL "127.0.0.1"
-#define PORT 5555
+#define PORT 6666
 /* ====================================================================== */
 /*                  Affichage du jeu en mode texte brut                   */
 /* ====================================================================== */
@@ -51,6 +52,9 @@ void afficher_jeu(int jeu[N][N], int res, int points, int coups) {
                 case 3:
                     printf(MAGENTA " %d " RESET, jeu[i][j]);
                     break;
+                default:
+                    printf(CYAN " %d " RESET, jeu[i][j]);
+                    break;
             }
         }
         printf("|\n");
@@ -71,6 +75,15 @@ int main(int argc, char **argv) {
 
     /* Init args */
     // TODO. @IP et numéro de port en paramètres du programme
+    //if (argc != 3)
+    //{
+    //    fprintf(stderr, "Usage: %s IP numero_port\n", argv[0]);
+    //}
+    
+    //char* SERVER_LOCAL = argv[1];
+    //int PORT = atoi(argv[2]);
+
+
     int client_socket;
     struct sockaddr_in server_addr; // structure to prepare for server address
     
@@ -131,14 +144,17 @@ int main(int argc, char **argv) {
         memset(buffer, 0, sizeof(buffer)); // Initialisation du buffer
         /* Deserialisation du résultat en un entier */
         // TODO
-        if (recv(client_socket, buffer, sizeof(buffer), 0) < 0) {
+        int len = recv(client_socket, buffer, sizeof(buffer) - 1, 0);  // <- leave space for '\0'
+        if (len < 0) {
             perror("recv failed");
             close(client_socket);
             return -1;
         }
+        buffer[len] = '\0'; // ✅ Ensure string is properly terminated
+        printf("Message reçu du serveur: [%s]\n", buffer);
         res = atoi(buffer); // Conversion de la chaîne de caractères en entier
         
-
+        printf("res recu: %i", res);
         /* Mise à jour */
         if (lig>=1 && lig<=N && col>=1 && col<=N)
             jeu[lig-1][col-1] = res;
