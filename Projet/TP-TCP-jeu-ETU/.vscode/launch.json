@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/chaud/OneDrive/2. Study/Paul Sab Licence Info/6e semestre/SR1/TP Reseaux/SR1/Projet/TP-TCP-jeu-ETU",
+      "program": "c:/Users/chaud/OneDrive/2. Study/Paul Sab Licence Info/6e semestre/SR1/TP Reseaux/SR1/Projet/TP-TCP-jeu-ETU/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
